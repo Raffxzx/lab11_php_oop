@@ -111,6 +111,8 @@ Template digunakan agar tampilan rapi dan seragam.
 
 Buka di browser:
 
+http://localhost/lab11_php_oop/implementasi.php
+
 http://localhost/lab11_php_oop/artikel/index
 
 ✔️ Kesimpulan
