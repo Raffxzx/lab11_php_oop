@@ -1,12 +1,12 @@
 <?php
 $db = new Database();
 
-$data = [
-    'judul' => $_POST['judul'],
-    'isi'   => $_POST['isi']
-];
+$judul = $_POST['judul'];
+$isi   = $_POST['isi'];
 
-$db->insert('artikel', $data);
+$sql = "INSERT INTO artikel (judul, isi) VALUES ('$judul', '$isi')";
+$db->query($sql);
 
-header("Location: /lab11_php_oop/artikel/index");
-?>
+// redirect ke halaman artikel
+header('Location: /lab11_php_oop/artikel');
+exit;

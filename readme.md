@@ -1,128 +1,126 @@
-Praktikum 11 – PHP OOP
+# Praktikum Pemrograman Web OOP (PHP)
 
 Nama    : M. Rafi Al Hakim
 
 Kelas   : TI.24.A.3
 
-Nim     : 312410403
+Nim     :312410403
 
-# Nama Praktikum
+##  Deskripsi Proyek
 
-Praktikum 11 – PHP OOP Lanjutan
-Membangun mini-framework PHP dengan konsep Modular, OOP, dan Routing.
+Proyek ini merupakan aplikasi web sederhana berbasis **PHP Object Oriented Programming (OOP)** yang dibuat untuk memenuhi tugas **Praktikum Pemrograman Web**. Aplikasi ini memiliki fitur **login menggunakan session** dan **manajemen data artikel (CRUD)** yang terhubung dengan database MySQL.
+
+Aplikasi dirancang menggunakan konsep modular dengan pemisahan folder **module**, **class**, dan **template** sehingga kode lebih rapi dan mudah dipahami.
 
 
-# Penjelasan Tiap Folder & File
-1. .htaccess
+##  Struktur Folder
 
-File yang mengaktifkan fitur routing menggunakan mod_rewrite Apache.
-URL menjadi lebih rapi seperti:
+```
+lab11_php_oop/
+│── index.php
+│── config.php
+│── .htaccess
+│── readme.md
+│
+├── class/
+│   ├── Database.php
+│   └── Form.php
+│
+├── module/
+│   ├── user/
+│   │   ├── login.php
+│   │   ├── logout.php
+│   │   └── profile.php
+│   │
+│   └── artikel/
+│       ├── index.php
+│       ├── tambah.php
+│       ├── simpan.php
+│       ├── ubah.php
+│       └── hapus.php
+│
+├── template/
+│   ├── header.php
+│   └── footer.php
+```
 
-- localhost/lab11_php_oop/artikel/tambah
 
-2. index.php (Router Utama)
+##  Fitur Login
 
-File paling penting yang membaca URL dan menentukan modul apa yang ditampilkan.
-Contoh:
+* Sistem login menggunakan **session PHP**
 
-- /artikel/index  →  module/artikel/index.php
-- /artikel/tambah →  module/artikel/tambah.php
+* Username dapat diisi bebas (contoh: Rafi, Aldo, Surya)
 
-3. Folder class/
+* Password bersifat umum untuk praktikum
 
-Berisi class OOP:
+**Password login:**
 
-File	Fungsi
-Database.php	class untuk koneksi database, insert, update
-Form.php	class untuk membuat form input dinamis (text, select, radio, dll.)
+1234
 
-4. Folder module/
+Halaman yang dilindungi tidak dapat diakses jika user belum login.
 
-Semua fitur aplikasi diletakkan di dalam modul.
-Pada tugas ini, modul artikel dibuat dengan 4 halaman:
 
-File	Fungsi
+##  Fitur Manajemen Artikel
 
-index.php	menampilkan daftar artikel
+* Menampilkan daftar artikel
 
-tambah.php	form tambah artikel
+* Menambahkan artikel
 
-simpan.php	proses menyimpan ke database
+* Mengubah artikel
 
-ubah.php	mengedit artikel
+* Menghapus artikel
 
-5. Folder template/
+Data artikel disimpan dalam database MySQL dan dikelola menggunakan class Database.
 
-Berisi layout:
 
-File	Fungsi
+##  Struktur Database
 
-header.php	header HTML
+**Nama Database:** `db_praktikum11`
 
-footer.php	footer HTML
+### Tabel `artikel`
 
-sidebar.php	menu navigasi modul
+```sql
+CREATE TABLE artikel (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    judul VARCHAR(200) NOT NULL,
+    isi TEXT NOT NULL
+);
+```
 
-# Langkah Praktikum
-1. Membuat struktur folder
 
-Membuat folder lab11_php_oop beserta subfolder: class, module, template.
+##  Cara Menjalankan Aplikasi
 
-2. Memindahkan class Form & Database
+1. Pastikan **XAMPP** sudah terinstall
 
-Class dari praktikum sebelumnya ditempatkan pada folder class/.
+2. Jalankan **Apache** dan **MySQL**
 
-3. Membuat file config.php
+3. Letakkan folder proyek di:
 
-Berisi konfigurasi database:
+   C:\xampp\htdocs\lab11_php_oop
 
-$config = [
-    'host' => 'localhost',
-    'username' => 'root',
-    'password' => '',
-    'db_name' => 'db_praktikum11'
-];
+4. Buka browser dan akses:
 
-4. Membuat file .htaccess untuk routing
+   http://localhost/lab11_php_oop/index.php/user/login
+   
+5. Login dengan:
 
-Mengaktifkan URL rewriting agar router berjalan.
+   Username: bebas
+   Password: 1234
 
-5. Membuat router utama pada index.php
+6. Setelah login, pengguna akan diarahkan ke halaman artikel
 
-Router membaca URL dan memanggil modul yang sesuai.
+##  Konsep OOP yang Digunakan
 
-6. Membuat modul artikel
+* **Class Database**: Mengelola koneksi dan query database
 
-Berisi halaman untuk:
+* **Class Form**: Membantu pembuatan elemen form
 
-melihat artikel
+* **Modular Programming**: Pemisahan logic aplikasi berdasarkan module
 
-menambah artikel
+* **Session**: Mengatur autentikasi dan hak akses user
 
-menyimpan artikel
 
-mengubah artikel
+## 🎓 Kesimpulan
 
-7. Membuat template (header, footer, sidebar)
+Aplikasi ini dibuat sebagai sarana pembelajaran penerapan konsep **Object Oriented Programming pada PHP**, penggunaan **session**, serta pengelolaan data menggunakan **MySQL**. Dengan struktur yang modular, aplikasi menjadi lebih terorganisir dan mudah dikembangkan.
 
-Template digunakan agar tampilan rapi dan seragam.
-
-8. Menjalankan project
-
-Buka di browser:
-
-http://localhost/lab11_php_oop/artikel/index
-
-✔️ Kesimpulan
-
-Pada Praktikum 11 ini, saya telah mempelajari:
-
-Cara membuat mini-framework PHP
-
-Cara membuat routing URL tanpa query string
-
-Cara membangun modul halaman
-
-Cara menggunakan OOP untuk form dinamis dan database
-
-Cara memisahkan template, class, dan modul agar lebih rapi

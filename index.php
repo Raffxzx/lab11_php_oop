@@ -1,24 +1,47 @@
 <?php
-include "config.php";
-include "class/Database.php";
-include "class/Form.php";
 session_start();
 
-$path = isset($_SERVER['PATH_INFO']) ? $_SERVER['PATH_INFO'] : '/home/index';
-$segments = explode('/', trim($path, '/'));
+require_once "config.php";
+require_once "class/Database.php";
+require_once "class/Form.php";
 
-$mod  = $segments[0] ?? 'home';
-$page = $segments[1] ?? 'index';
+// Ambil PATH
+$path = $_SERVER['PATH_INFO'] ?? '';
+$path = trim($path, '/');
 
-$file = "module/{$mod}/{$page}.php";
-
-include "template/header.php";
-
-if (file_exists($file)) {
-    include $file;
+// Default module & page
+if ($path === '') {
+    $mod  = 'artikel';
+    $page = 'index';
 } else {
-    echo "<h3 style='color:red'>Modul tidak ditemukan: $mod/$page</h3>";
+    $segments = explode('/', $path);
+    $mod  = $segments[0] ?? 'artikel';
+    $page = $segments[1] ?? 'index';
 }
 
-include "template/footer.php";
-?>
+// Halaman publik
+$public_pages = ['user'];
+
+// Proteksi login
+if (!in_array($mod, $public_pages)) {
+    if (!isset($_SESSION['is_login'])) {
+        header('Location: /lab11_php_oop/index.php/user/login');
+        exit;
+    }
+}
+
+// Tentukan file
+$file = "module/$mod/$page.php";
+
+// Load halaman
+if (file_exists($file)) {
+    if ($mod === 'user' && $page === 'login') {
+        include $file;
+    } else {
+        include "template/header.php";
+        include $file;
+        include "template/footer.php";
+    }
+} else {
+    echo "Halaman tidak ditemukan";
+}

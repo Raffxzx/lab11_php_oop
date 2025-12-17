@@ -1,8 +1,5 @@
 <?php
-$config = [
-    'host' => 'localhost',
-    'username' => 'root',
-    'password' => '', 
-    'db_name' => 'db_praktikum11'
-];
-?>
+define('DB_HOST', 'localhost');
+define('DB_USER', 'root');
+define('DB_PASS', '');
+define('DB_NAME', 'db_praktikum11');
